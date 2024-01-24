@@ -16,3 +16,9 @@ export const getBoardById = async (id: string | undefined) => {
         await axios.get(`/boards/${id}?fields=id,name&lists=open&list_fields=id,name&key=${apiKey}&token=${token}`);
     return res.data;
 }
+
+export const getListById = async (id: string | undefined) => {
+    const res: AxiosResponse<any, any> =
+        await axios.get(`/lists/${id}/cards?fields=name&key=${apiKey}&token=${token}`);
+    return res.data;
+}

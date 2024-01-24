@@ -3,15 +3,15 @@ import { useParams } from "react-router-dom";
 import * as TrelloApi from '../services/trello-api';
 import { List } from "../components/List/List";
 
-type ListType = {
+export type ListType = {
     id: string,
-    name: string
+    name: string,
 }
 
 type BoardType = {
     id: string,
     name: string,
-    lists: Array<ListType>
+    lists: Array<ListType>,
 }
 
 const Board = () => {
@@ -30,7 +30,7 @@ const Board = () => {
     return (
         <div>
             <h1>{board?.name}</h1>
-            <List />
+            <List lists={board?.lists} />
         </div>
     )
 }
