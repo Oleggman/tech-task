@@ -6,7 +6,9 @@ import * as TrelloApi from '../services/trello-api';
 const HomePage: React.LazyExoticComponent<() => JSX.Element> = lazy(() => import('../pages/Home'));
 const BoardPage: React.LazyExoticComponent<() => JSX.Element> = lazy(() => import('../pages/Board'));
 
-const App = () => {
+interface Props {}
+
+const App: React.FC<Props> = () => {
   const [boards, setBoards] = useState([]);
   useEffect(() => {
     const fetchBoards = async () => {
