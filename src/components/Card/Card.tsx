@@ -1,5 +1,12 @@
-export const Card = () => {
+import React from "react"
+import { CardType } from "../List/List"
+
+interface Props {
+  card: CardType
+}
+
+export const Card: React.FC<Props> = ({card}) => {
   return (
-    <div>Card</div>
+    <div>{card.name}</div>
   )
 }
