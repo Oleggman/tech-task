@@ -1,4 +1,4 @@
-import React, { FormEvent, FormEventHandler } from "react"
+import React from "react"
 import { CreateBtn, TextArea } from "./CreateCardForm.styled"
 import { useBoard } from "../../hooks/useBoard"
 import * as TrelloApi from '../../services/trello-api';
