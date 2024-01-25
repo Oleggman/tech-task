@@ -60,14 +60,14 @@ export const List: React.FC<Props> = ({ lists }) => {
     e.preventDefault();
   }
 
-  const handleDropCard = async (e: any, list: FullList) => {
+  const handleDropCard = async (e: any, list: any) => {
     e.preventDefault();
     if (list.cards.length !== 0 || !currentList || !currentCard) {
       return;
     }
 
     const currentIndex = currentList.cards.indexOf(currentCard);
-    const initialList = currentList.cards.slice(currentIndex, currentIndex + 1);
+    currentList.cards.splice(currentIndex, currentIndex + 1);
     const newList = [currentCard]
 
     const res = await TrelloApi.moveCard(currentCard?.id, list.id);
@@ -75,7 +75,7 @@ export const List: React.FC<Props> = ({ lists }) => {
     if (changeBoard && board && res.status === 200) {
       const newBoard = board.map(item => {
         if (item.id === currentList.id) {
-          return { ...item, cards: initialList };
+          return { ...item, cards: currentList.cards };
         }
         if (item.id === list.id) {
           return { ...item, cards: newList };
