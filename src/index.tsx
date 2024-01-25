@@ -10,8 +10,7 @@ const root: ReactDOM.Root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    {/* <BrowserRouter basename="/tech-task"> */}
-    <BrowserRouter>
+    <BrowserRouter basename="/tech-task">
       <BoardProvider>
         <App />
         <GlobalStyle />

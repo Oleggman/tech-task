@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import React, { Suspense } from "react";
 import { BoardItem, BoardsList, Layout, Sidebar, SidebarTitle, StyledNavLink, Main } from "./SharedLayout.styled";
 
-type Board = {
+export type Board = {
     id: string,
     name: string
 }

@@ -15,14 +15,16 @@ export type CardType = {
   name:string,
 }
 
-export type AllLists = {cards: CardType[], id: string, name:string}[];
+export type AllLists = { cards: CardType[], id: string, name: string }[];
+
+type FullList = { cards: CardType[], id: string, name: string };
 
 export const List: React.FC<Props> = ({ lists }) => {
   const [allLists, setAllLists] = useState<AllLists | null>(null);
   const { board, changeBoard } = useBoard();
   const isListLoaded: React.MutableRefObject<boolean> = useRef(false);
   // Drag and drop states
-  const [currentList, setCurrentList] = useState<any>();
+  const [currentList, setCurrentList] = useState<FullList>();
   const [currentCard, setCurrentCard] = useState<CardType>();
 
   useEffect(() => {
@@ -58,14 +60,14 @@ export const List: React.FC<Props> = ({ lists }) => {
     e.preventDefault();
   }
 
-  const handleDropCard = async (e: any, list: any) => {
+  const handleDropCard = async (e: any, list: FullList) => {
     e.preventDefault();
-    if (list.cards.length !== 0) {
+    if (list.cards.length !== 0 || !currentList || !currentCard) {
       return;
     }
 
     const currentIndex = currentList.cards.indexOf(currentCard);
-    const initialList = currentList.cards.toSpliced(currentIndex, 1);
+    const initialList = currentList.cards.slice(currentIndex, currentIndex + 1);
     const newList = [currentCard]
 
     const res = await TrelloApi.moveCard(currentCard?.id, list.id);
