@@ -21,7 +21,10 @@ export const List: React.FC<Props> = ({ lists }) => {
   const [allLists, setAllLists] = useState<AllLists | null>(null);
   const { board, changeBoard } = useBoard();
   const isListLoaded: React.MutableRefObject<boolean> = useRef(false);
-    
+  // Drag and drop states
+  const [currentList, setCurrentList] = useState<any>();
+  const [currentCard, setCurrentCard] = useState<CardType>();
+
   useEffect(() => {
     const getAllListsById = async () => {
       if (lists) {
@@ -51,16 +54,50 @@ export const List: React.FC<Props> = ({ lists }) => {
     isListLoaded.current = true;
   }
 
-  console.log(board);
+  const handleDragOver = (e: any) => {
+    e.preventDefault();
+  }
+
+  const handleDropCard = async (e: any, list: any) => {
+    e.preventDefault();
+    if (list.cards.length !== 0) {
+      return;
+    }
+
+    const currentIndex = currentList.cards.indexOf(currentCard);
+    const initialList = currentList.cards.toSpliced(currentIndex, 1);
+    const newList = [currentCard]
+
+    const res = await TrelloApi.moveCard(currentCard?.id, list.id);
+
+    if (changeBoard && board && res.status === 200) {
+      const newBoard = board.map(item => {
+        if (item.id === currentList.id) {
+          return { ...item, cards: initialList };
+        }
+        if (item.id === list.id) {
+          return { ...item, cards: newList };
+        }
+        return item;
+      })
+      
+      changeBoard(newBoard);
+    }
+  }
   return (
     <>
       {allLists &&
       <Lists>
           {board?.map(list =>
-            <OneList key={list.id}>
+            <OneList key={list.id} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDropCard(e, list)}>
               <ListTitle>{list.name}</ListTitle>
               <CardsList>
-                {list.cards.map(card => <Card key={card.id} card={card}/>)}
+                {list.cards.map(card =>
+                  <Card
+                    key={card.id} card={card} list={list}
+                    dragCard={currentCard} setDragCard={setCurrentCard}
+                    dragList={currentList} setDragList={setCurrentList}
+                  />)}
               </CardsList>
               
               <CreateCardForm listId={list.id} />

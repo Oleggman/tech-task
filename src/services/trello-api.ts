@@ -28,3 +28,9 @@ export const addCard = async (listId: string | undefined, text: string | undefin
         await axios.post(`/cards?idList=${listId}&name=${text}&key=${apiKey}&token=${token}`);
     return res.data;
 }
+
+export const moveCard = async (cardId: string | undefined, listId: string | undefined) => {
+    const res: AxiosResponse<any, any> =
+        await axios.put(`/cards/${cardId}?&idList=${listId}&key=${apiKey}&token=${token}`);
+    return res;
+}
