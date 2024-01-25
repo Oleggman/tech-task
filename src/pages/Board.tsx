@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import * as TrelloApi from '../services/trello-api';
 import { List } from "../components/List/List";
+import { BoardTitle } from "../components/SharedLayout/SharedLayout.styled";
 
 export type ListType = {
     id: string,
@@ -29,7 +30,7 @@ const Board = () => {
 
     return (
         <div>
-            <h1>{board?.name}</h1>
+            <BoardTitle>{board?.name}</BoardTitle>
             <List lists={board?.lists} />
         </div>
     )

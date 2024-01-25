@@ -1,5 +1,6 @@
 import React from "react"
 import { CardType } from "../List/List"
+import { StyledCard } from "./Card.styled"
 
 interface Props {
   card: CardType
@@ -7,6 +8,6 @@ interface Props {
 
 export const Card: React.FC<Props> = ({card}) => {
   return (
-    <div>{card.name}</div>
+    <StyledCard>{card.name}</StyledCard>
   )
 }

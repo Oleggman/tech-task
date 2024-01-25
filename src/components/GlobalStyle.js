@@ -23,4 +23,10 @@ export const GlobalStyle = createGlobalStyle`
   img {
     display: block;
   }
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
 `;

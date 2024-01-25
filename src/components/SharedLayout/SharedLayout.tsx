@@ -1,5 +1,6 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import React, { Suspense } from "react";
+import { BoardItem, BoardsList, Layout, Sidebar, SidebarTitle, StyledNavLink, Main } from "./SharedLayout.styled";
 
 type Board = {
     id: string,
@@ -12,20 +13,19 @@ interface Props {
 
 export const SharedLayout: React.FC<Props> = ({boards}) => {
   return (
-    <>
-      <header>
-        <nav>
-          <ul>{boards.map(({ id, name }) =>
-              <li key={id}><NavLink to={`/boards/${id}`}>{name}</NavLink></li>)}
-          </ul>
-        </nav>
-      </header>
+    <Layout>
+      <Sidebar>
+          <SidebarTitle>All boards</SidebarTitle>
+          <BoardsList>{boards.map(({ id, name }) =>
+              <BoardItem key={id}><StyledNavLink to={`/boards/${id}`}>{name}</StyledNavLink></BoardItem>)}
+          </BoardsList>
+      </Sidebar>
 
-      <main>
+      <Main>
         <Suspense fallback={<h2>Loading...</h2>}>
           <Outlet />
-          </Suspense>
-      </main>
-    </>
+        </Suspense>
+      </Main>
+    </Layout>
   )
 }

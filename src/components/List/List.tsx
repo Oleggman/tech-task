@@ -3,6 +3,7 @@ import { ListType } from "../../pages/Board"
 import * as TrelloApi from '../../services/trello-api';
 import { Card } from "../Card/Card";
 import { useBoard } from "../../hooks/useBoard";
+import { CardsList, ListTitle, Lists, OneList } from "./List.styled";
 
 interface Props {
   lists: Array<ListType> | undefined,
@@ -17,7 +18,7 @@ export type AllLists = {cards: CardType[], id: string, name:string}[];
 
 export const List: React.FC<Props> = ({ lists }) => {
   const [allLists, setAllLists] = useState<AllLists | null>(null);
-  const { board, changeBoard } = useBoard();
+  const { changeBoard } = useBoard();
   const isListLoaded: React.MutableRefObject<boolean> = useRef(false);
     
   useEffect(() => {
@@ -51,15 +52,15 @@ export const List: React.FC<Props> = ({ lists }) => {
   return (
     <>
       {allLists &&
-      <ul>
+      <Lists>
           {allLists.map(list =>
-            <li key={list.id}>
-              <h2>{list.name}</h2>
-              <ul>
-                {list.cards.map(card => <li key={card.id}><Card card={card}/></li>)}
-              </ul>
-            </li>)}
-        </ul>}
+            <OneList key={list.id}>
+              <ListTitle>{list.name}</ListTitle>
+              <CardsList>
+                {list.cards.map(card => <Card key={card.id} card={card}/>)}
+              </CardsList>
+            </OneList>)}
+        </Lists>}
       {!allLists && <h2>Loading...</h2>}
     </>
   )
