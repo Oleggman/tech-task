@@ -30,6 +30,7 @@ export const BoardsList = styled.ul`
 export const BoardItem = styled.li`
   border-radius: 5px;
   background-color: ${() => getRandomColor()};
+  border: 1px solid black;
 `;
 
 export const StyledNavLink = styled(NavLink)`

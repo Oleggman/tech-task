@@ -10,7 +10,11 @@ const BoardContext: React.Context<BoardContextType> = createContext({});
 
 export const useBoard = () => useContext(BoardContext);
 
-export const BoardProvider = ({ children }: any) => {
+interface Props {
+    children: React.ReactNode
+}
+
+export const BoardProvider = ({ children } : Props) => {
     const [board, setBoard] = useState<AllLists | null>(null);
 
     const changeBoard = (board: AllLists | null) => {

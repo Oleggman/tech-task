@@ -22,3 +22,9 @@ export const getListById = async (id: string | undefined) => {
         await axios.get(`/lists/${id}/cards?fields=name&key=${apiKey}&token=${token}`);
     return res.data;
 }
+
+export const addCard = async (listId: string | undefined, text: string | undefined) => {
+    const res: AxiosResponse<any, any> =
+        await axios.post(`/cards?idList=${listId}&name=${text}&key=${apiKey}&token=${token}`);
+    return res.data;
+}
