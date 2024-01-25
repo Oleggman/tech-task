@@ -26,7 +26,7 @@ const Board = () => {
 
         fetchBoardById();
     }, [boardId])
-    
+
     return (
         <div>
             <h1>{board?.name}</h1>
